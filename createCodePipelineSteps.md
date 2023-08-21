@@ -70,3 +70,93 @@ If you're referring to using an S3 bucket as the source of your CodePipeline, th
     -   Click "Create Pipeline".
 
 Your pipeline will then be created and should automatically run using the source code/artifact from the specified S3 bucket and then pass that to your existing CodeBuild project.
+
+![User](https://chat.openai.com/_next/image?url=https%3A%2F%2Flh3.googleusercontent.com%2Fa%2FAAcHTtcGuIG4KdUQ_CPGAho4yUXInIDR9bgJT8PeLZIN8iST%3Ds96-c&w=96&q=75)
+
+I didn't see you the connection between pipeline and codebuild
+
+ChatGPT
+
+I apologize for any confusion. Let's detail the connection between the AWS CodePipeline and AWS CodeBuild.
+
+The build stage in the pipeline is where you'd specify your AWS CodeBuild project. By setting up the build stage correctly, your pipeline will automatically fetch the latest source code from the source you specify (like S3) and then send it to CodeBuild for building.
+
+### Connecting CodePipeline to CodeBuild
+
+When you're in the process of creating or editing your pipeline:
+
+#### 1\. **Step 1: Source Stage** (This would be S3 in your case, as already explained)
+
+#### 2\. **Step 2: Build Stage**:
+
+1.  Build provider: Choose "AWS CodeBuild".
+    
+2.  Region: Select the AWS region where your existing CodeBuild project resides.
+    
+3.  Project name: A dropdown will appear with a list of CodeBuild projects in the selected region. Choose the existing AWS CodeBuild project that you want this pipeline to trigger. If you don't see your project, ensure you're in the correct region.
+    
+4.  Environment Variables (Optional): If your CodeBuild buildspec or build commands rely on any environment variables, you can specify them here.
+    
+5.  Click "Next" to move on to the next stage.
+    
+
+#### 3\. **Step 3: Deploy Stage**:
+
+This will depend on where you want to deploy your built artifacts. If you're not deploying immediately after building, you can skip this stage or set it up based on your deployment targets (ECS, Lambda, EC2, etc.).
+
+#### 4\. **Review and Create Pipeline**:
+
+After you've set up the source and build stages, review your settings and then create the pipeline.
+
+When you run this pipeline:
+
+1.  CodePipeline will fetch the latest version of your source code from the S3 bucket.
+2.  CodePipeline will then trigger the CodeBuild project you've specified in the build stage.
+3.  CodeBuild will build the source code according to the buildspec file in your source code or the buildspec that you've defined in the CodeBuild project.
+4.  Once the build completes, the pipeline will move to the deploy stage (if you have one configured).
+
+Ensure that the IAM service role associated with CodePipeline has sufficient permissions to trigger CodeBuild and access other necessary AWS services.
+
+![User](https://chat.openai.com/_next/image?url=https%3A%2F%2Flh3.googleusercontent.com%2Fa%2FAAcHTtcGuIG4KdUQ_CPGAho4yUXInIDR9bgJT8PeLZIN8iST%3Ds96-c&w=96&q=75)
+
+I have configured a github repository as the source fo codebuild. Should I configure it during setting up the pipeline?
+
+ChatGPT
+
+Yes, if you've already configured a GitHub repository as the source for CodeBuild, you have two main ways to integrate GitHub with AWS CodePipeline:
+
+1.  Use GitHub as the Source in CodePipeline directly: In this method, you integrate GitHub directly with CodePipeline. Your pipeline will trigger when there are changes in your GitHub repository.
+    
+2.  Use CodeBuild's integration with GitHub, and then connect CodePipeline to CodeBuild: Here, you're relying on CodeBuild's direct integration with GitHub, and CodePipeline will just see CodeBuild as a step without being directly aware of the GitHub source.
+    
+
+For most use cases, the first method is recommended as it makes the pipeline more transparent and allows you to leverage CodePipeline's native integration with GitHub for change detection and other features.
+
+### Configuring GitHub as the Source in CodePipeline:
+
+1.  Open the CodePipeline Console: Navigate to the [CodePipeline Console](https://console.aws.amazon.com/codepipeline/).
+    
+2.  Create/Edit Pipeline:
+    
+    -   If you're creating a new pipeline, click "Create Pipeline".
+    -   If you're editing an existing pipeline, choose your pipeline and edit.
+3.  Step 1: Name:
+    
+    -   If you're creating a new pipeline, name your pipeline and move forward.
+4.  Step 2: Source Stage:
+    
+    -   For "Source provider", choose "GitHub (Version 2)". Note: AWS has migrated to a newer GitHub integration called GitHub version 2.
+    -   Connect to GitHub by following the authentication prompts. This will involve logging into your GitHub account and authorizing AWS CodePipeline to access your repositories.
+    -   Once authenticated, select the repository and branch you want to use.
+    -   Click "Next".
+5.  Step 3: Build Stage:
+    
+    -   For "Build provider", choose "AWS CodeBuild".
+    -   Choose the region and select your existing CodeBuild project.
+    -   Click "Next".
+6.  Step 4 and beyond: Follow the rest of the pipeline creation steps as discussed before.
+    
+
+By setting GitHub as the source in CodePipeline, you'll benefit from automatic pipeline executions every time there's a change in your GitHub repository. The source changes will be fetched by CodePipeline, then passed on to CodeBuild for building, and subsequently to any other stages you have in the pipeline.
+
+Remember, if you choose to use GitHub directly in CodePipeline, you should update your CodeBuild project's source to be "AWS CodePipeline" so that it expects to get the source from the pipeline instead of directly from GitHub.
