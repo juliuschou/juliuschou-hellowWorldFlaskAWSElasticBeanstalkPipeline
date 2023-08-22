@@ -11,6 +11,9 @@ What Will You Learn?
 -   Implementing AWS CodePipeline to automate deployment processes, taking your code from GitHub to live on AWS Elastic Beanstalk without manual intervention.
 -   Best practices for a secure and efficient deployment pipeline using AWS services combined with GitHub.
 
+![image](https://github.com/juliuschou/juliuschou-hellowWorldFlaskAWSElasticBeanstalkPipeline/assets/4725611/e7f8c86d-3b32-48fc-a5ee-3f6ce23ffffe)
+
+
 Before diving into the tutorial, make sure you're familiar with the prerequisites. These foundational tools and concepts are pivotal for the successful execution of the steps that follow.
 
 Let’s integrate AWS CodePipeline, CodeBuild, Elastic Beanstalk, and GitHub for a seamless development-to-deployment experience!
@@ -249,7 +252,7 @@ phases:
       - echo Build completed.
 ``` 
 
-#### 7. setting up AWS CodePipeline with GitHub Version 2 as the source provider and deploying to an existing Elastic Beanstalk application:
+## 7. setting up AWS CodePipeline with GitHub Version 2 as the source provider and deploying to an existing Elastic Beanstalk application:
 
 -   1 Name & Location:
     
