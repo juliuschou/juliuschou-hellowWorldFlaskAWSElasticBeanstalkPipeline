@@ -1,4 +1,19 @@
+# Seamless Flask Deployment: Integrating GitHub with AWS CodePipeline, CodeBuild, and Elastic Beanstalk
 
+Welcome to this comprehensive tutorial where we'll guide you step-by-step on deploying your Flask applications using AWS services and GitHub as your primary source provider. From code commits on GitHub to live deployments on AWS, we have you covered.
+
+What Will You Learn?
+
+-   Setting up and leveraging the AWS Elastic Beanstalk Command Line Interface (EB CLI).
+-   Developing a Flask application and preparing it for cloud deployment.
+-   Using GitHub as a source provider, ensuring real-time code tracking and version management.
+-   Utilizing AWS CodeBuild for continuous integration, making sure your code is always ready for deployment.
+-   Implementing AWS CodePipeline to automate deployment processes, taking your code from GitHub to live on AWS Elastic Beanstalk without manual intervention.
+-   Best practices for a secure and efficient deployment pipeline using AWS services combined with GitHub.
+
+Before diving into the tutorial, make sure you're familiar with the prerequisites. These foundational tools and concepts are pivotal for the successful execution of the steps that follow.
+
+Let’s integrate AWS CodePipeline, CodeBuild, Elastic Beanstalk, and GitHub for a seamless development-to-deployment experience!
 
 ## 1. Prerequisite
 ### Understand how to install the AWS Elastic Benastalk on Linux from the link below:
