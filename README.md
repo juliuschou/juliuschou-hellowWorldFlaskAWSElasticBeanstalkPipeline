@@ -152,68 +152,70 @@ Configuring GitHub to Avoid Using Username and Password
 
 To interact with GitHub without the need for entering a username and password every time, you can configure SSH authentication. Here are the steps:
 
-### 1. Generate SSH Key
-
-- Open a terminal on your CentOS 7 machine and run the following command to generate an SSH key pair:
+1. Generate SSH Key
     
-    `ssh-keygen -t ed25519 -C "your_email@example.com"` 
+    - Open a terminal on your CentOS 7 machine and run the following command to generate an SSH key pair:
+        
+        `ssh-keygen -t ed25519 -C "your_email@example.com"` 
+        
+
+2. Add SSH Key to GitHub Account
+
+    2.1  Log into your GitHub account.
+    
+    2.2  Click on your profile picture → Settings → SSH and GPG keys → New SSH key.
+    
+    2.3  Paste the contents of your `id_ed25519.pub` file into the "Key" field, give your key a descriptive title, and click "Add SSH key".
+
+3. Install Git
+
+    - Install Git with the following command:
+        
+        `sudo yum install git` 
     
 
-### 2. Add SSH Key to GitHub Account
+4. Configure Git to Use SSH
 
-1.  Log into your GitHub account.
-2.  Click on your profile picture → Settings → SSH and GPG keys → New SSH key.
-3.  Paste the contents of your `id_ed25519.pub` file into the "Key" field, give your key a descriptive title, and click "Add SSH key".
+    - Set your Git username and email address, and configure Git to use SSH. Use the following commands:
+        ```
+        git config --global user.name "Your GitHub Username"
+        git config --global user.email "your_email@example.com"
+        ```
 
-### 3. Install Git
+5. Created an empty repository on GitHub, you can push your code to GitHub:
 
-- Install Git with the following command:
-    
-    `sudo yum install git` 
-    
-
-### 4. Configure Git to Use SSH
-
-- Set your Git username and email address, and configure Git to use SSH. Use the following commands:
     ```
-    git config --global user.name "Your GitHub Username"
-    git config --global user.email "your_email@example.com"
+    # Navigate to your project directory (the directory where your code is located) 
+    cd /path/to/your/project # Initialize Git (if not already initialized) 
+    git init
+    
+    # Add the files you want to commit to the staging area 
+    git add . 
+    
+    # Commit the changes with a meaningful message 
+    git commit -m "Your commit message here" 
+    
+    # set remote github repository
+    git remote add origin git@github.com:YourUsername/YourRepository.git
+    
+    ![image](https://github.com/juliuschou/aws-code-build-exercise/assets/4725611/5d5d35a6-8926-4b0e-87e2-fce719ec2edf)
+    
+    
+    # Push the committed changes to the master branch of your GitHub repository 
+    git push origin master
     ```
 
-### 5. Created an empty repository on GitHub, you can push your code to GitHub:
+### 6. Set up a AWS CodeBuild project:
 
-```
-# Navigate to your project directory (the directory where your code is located) 
-cd /path/to/your/project # Initialize Git (if not already initialized) 
-git init
+1. In AWS Management Console, navigate to AWS CodeBuild and create a new build project.
 
-# Add the files you want to commit to the staging area 
-git add . 
+2. Connect it with your GitHub repository.
 
-# Commit the changes with a meaningful message 
-git commit -m "Your commit message here" 
+    Choose "GitHub" as the source provider. You'll be prompted to connect your AWS account to GitHub.
 
-# set remote github repository
-git remote add origin git@github.com:YourUsername/YourRepository.git
+3. Configure a `buildspec.yml` file:
 
-![image](https://github.com/juliuschou/aws-code-build-exercise/assets/4725611/5d5d35a6-8926-4b0e-87e2-fce719ec2edf)
-
-
-# Push the committed changes to the master branch of your GitHub repository 
-git push origin master
-```
-
-### 6\. Set up Continuous Delivery with AWS CodeBuild:
-
-#### a. In AWS Management Console, navigate to AWS CodeBuild and create a new build project.
-
-#### b. Connect it with your GitHub repository.
-
-Choose "GitHub" as the source provider. You'll be prompted to connect your AWS account to GitHub.
-
-#### c. Configure a `buildspec.yml` file:
-
-Create a `buildspec.yml` in the root directory of your repository. A simple example for this project might look like:
+    Create a `buildspec.yml` in the root directory of your repository. A simple example for this project might look like:
 
 
 ```
@@ -231,7 +233,7 @@ phases:
       - echo Build completed.
 ``` 
 
-#### d. setting up AWS CodePipeline with GitHub Version 2 as the source provider and deploying to an existing Elastic Beanstalk application:
+#### 7. setting up AWS CodePipeline with GitHub Version 2 as the source provider and deploying to an existing Elastic Beanstalk application:
 
 -   1 Name & Location:
     
