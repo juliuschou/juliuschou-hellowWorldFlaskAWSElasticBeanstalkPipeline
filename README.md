@@ -231,9 +231,32 @@ phases:
       - echo Build completed.
 ``` 
 
-#### d. Use AWS CodePipeline:
+#### d. setting up AWS CodePipeline with GitHub Version 2 as the source provider and deploying to an existing Elastic Beanstalk application:
 
-1.  Navigate to the AWS CodePipeline console and create a new pipeline.
-2.  Connect your GitHub repository as the source stage.
-3.  For the build stage, select the AWS CodeBuild project you set up earlier.
-4.  For the deployment stage, select AWS Elastic Beanstalk and choose the application and environment you set up.
+1\. Setup CodePipeline:
+
+-   1.1 Name & Location:
+    
+    -   Navigate to the CodePipeline console.
+    -   Enter a name for the pipeline.
+-   1.2 Source Configuration (GitHub Version 2):
+    
+    -   Choose GitHub (Version 2) as the Source provider.
+    -   Click on Connect to GitHub to use OAuth for connection.
+    -   After connecting, select your GitHub repository and branch.
+    -   Decide on the output artifact format (CodePipeline default or GitHub).
+-   1.3 Build Configuration:
+    
+    -   Select AWS CodeBuild as the Build provider.
+    -   Pick the region and project name you wish to use.
+-   1.4 Deployment Configuration (Using Elastic Beanstalk):
+    
+    -   For Deployment provider, choose AWS Elastic Beanstalk.
+    -   In Application name, choose your existing Elastic Beanstalk application.
+    -   In Environment name, choose the appropriate environment of your Elastic Beanstalk application where you'd like the code to be deployed.
+-   1.5 Review & Create:
+    
+    -   Go over the pipeline settings to ensure accuracy.
+    -   Proceed to create the pipeline.
+
+By following these steps, you'll have a pipeline that gets the source code from a GitHub repository, builds it using AWS CodeBuild, and deploys it to an existing AWS Elastic Beanstalk environment.
