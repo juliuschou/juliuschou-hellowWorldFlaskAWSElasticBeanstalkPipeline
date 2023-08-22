@@ -127,39 +127,39 @@ if __name__ == '__main__':
 
 1.   Initialize your application:
 
-Navigate to your project directory and run:
-
-    `eb init -i`
-
-![image](https://github.com/juliuschou/aws-code-build-exercise/assets/4725611/74ee75d4-2349-4a58-918c-f1d942fc69e0)
-
-![image](https://github.com/juliuschou/aws-code-build-exercise/assets/4725611/03f2c725-7db4-42e2-bc2c-dbb24a0fd562)
-
-![image](https://github.com/juliuschou/aws-code-build-exercise/assets/4725611/f75da3fb-af95-485a-b132-f5b45b214ebd)
-
+    Navigate to your project directory and run:
+    
+        `eb init -i`
+    
+    ![image](https://github.com/juliuschou/aws-code-build-exercise/assets/4725611/74ee75d4-2349-4a58-918c-f1d942fc69e0)
+    
+    ![image](https://github.com/juliuschou/aws-code-build-exercise/assets/4725611/03f2c725-7db4-42e2-bc2c-dbb24a0fd562)
+    
+    ![image](https://github.com/juliuschou/aws-code-build-exercise/assets/4725611/f75da3fb-af95-485a-b132-f5b45b214ebd)
+    
 
 
 2. create Flask config
 
-```
-mkdir .ebextensions
-cd .ebextensions
-vim 01_flask.config
-
-option_settings:
-  aws:elasticbeanstalk:application:environment:
-    PYTHONPATH: "/var/app/current:$PYTHONPATH"
-  aws:elasticbeanstalk:container:python:
-    WSGIPath: "app:app"
-
-```
+    ```
+    mkdir .ebextensions
+    cd .ebextensions
+    vim 01_flask.config
+    
+    option_settings:
+      aws:elasticbeanstalk:application:environment:
+        PYTHONPATH: "/var/app/current:$PYTHONPATH"
+      aws:elasticbeanstalk:container:python:
+        WSGIPath: "app:app"
+    
+    ```
 
 
 3. create an Elastic Bean application    
     `eb create [your-env-name]`
     
     
-After the deployment completes, you can access your Flask application via the URL provided by Elastic Beanstalk.
+    After the deployment completes, you can access your Flask application via the URL provided by Elastic Beanstalk.
 
 ## 5. Push Code to GitHub
 
@@ -220,7 +220,7 @@ To interact with GitHub without the need for entering a username and password ev
     git push origin master
     ```
 
-### 6. Set up a AWS CodeBuild project:
+## 6. Set up a AWS CodeBuild project:
 
 1. In AWS Management Console, navigate to AWS CodeBuild and create a new build project.
 
