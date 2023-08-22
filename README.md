@@ -279,3 +279,7 @@ phases:
     -   Proceed to create the pipeline.
 
 By following these steps, you'll have a pipeline that gets the source code from a GitHub repository, builds it using AWS CodeBuild, and deploys it to an existing AWS Elastic Beanstalk environment.
+
+![image](https://github.com/juliuschou/juliuschou-hellowWorldFlaskAWSElasticBeanstalkPipeline/assets/4725611/fb8b26c1-b5f0-441f-b603-66eea34df6d7)
+
+I utilized ChatGPT to enhence this tutorial, as English is my second language.
