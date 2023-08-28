@@ -6,6 +6,8 @@ Certainly! The task involves several steps, each requiring some technical skills
 1.1.  **Initialize a New Python Project**: 
 
 - Create a new folder and initialize it as a Python project. Create a `requirements.txt` to list the Python packages you'll need (Flask, scikit-learn, etc.).
+
+![image](https://github.com/juliuschou/juliuschou-hellowWorldFlaskAWSElasticBeanstalkPipeline/assets/4725611/a98c7156-77b5-4813-abfd-36e6f20d0c8a)
     
 1.2.  **Create a Flask App**: 
 - Create a Python script, like `app.py`, where you import Flask and initialize a Flask web application.
@@ -144,6 +146,29 @@ Certainly! The task involves several steps, each requiring some technical skills
     
     if __name__ == "__main__":
         app.run(host='0.0.0.0', port=5000, debug=True)
+
+### tran and dump a new train a new scikit-learn model
+    from sklearn.model_selection import train_test_split
+    from sklearn.linear_model import LinearRegression
+    import joblib
+    
+    from sklearn.datasets import fetch_california_housing
+    
+    # Load the Boston Housing dataset
+    boston = fetch_california_housing()
+    X = boston.data
+    y = boston.target
+    
+    # Split the data into training and testing sets
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    
+    # Initialize and train the model
+    model = LinearRegression()
+    model.fit(X_train, y_train)
+    
+    # Save the trained model
+    joblib.dump(model, "boston_housing_prediction.joblib")
+
 
 ### `Dockerfile`
 
