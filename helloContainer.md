@@ -102,10 +102,10 @@ Certainly! The task involves several steps, each requiring some technical skills
 
     from flask import Flask, request, jsonify
     
-    import pandas as pd
-    
-    from sklearn.externals import joblib
+    import json
+    import joblib
     from sklearn.preprocessing import StandardScaler
+    import numpy as np
     
     app = Flask(__name__)
     
@@ -120,37 +120,66 @@ Certainly! The task involves several steps, each requiring some technical skills
     @app.route("/predict", methods=['POST'])
     def predict():
         """
-        Input sample:
-        {
-            "CHAS":{"0": 0}, "RM":{"0": 6.575},
-            "TAX":{"0": 296 }, "PTRATIO":{"0": 15.3 },
-            "b":{"0": 396.9 }, "LSTAT":{"0": 4.98 }
-        }
-        
-        Output sample:
-            {"prediction" : [20.35373177134412]}
+            Input sample:
+        		{
+        		  "MedInc": 3.2596,
+        		  "HouseAge": 33,
+        		  "AveRooms": 5.017657,
+        		  "AveBedrms": 1.006421,
+        		  "Population": 2300,
+        		  "AveOccup": 3.691814,
+        		  "Latitude": 32.71,
+        		  "Longitude": -117.03
+        		}
+    
+            Output sample:
+                {"prediction" : [1.9372587405453814]}
         """
-        clf = joblib.load("boston_housing_prediction.joblib")
-        inference_payload = pd.DataFrame(request.json)
-        scaled_payload = scale(inference_payload)
-        predicttion = list(clf.predict(scaled_payload))
-        return  jsonify({'prediction': predicttion})
+        try:
+            loaded_model = joblib.load("california_housing_prediction.joblib")
     
-    @app.route('/example', methods=['GET'])
-    def example():
-        return jsonify({'example': 'GET /predict'})
+            # Since you're expecting JSON, you can use request.json directly
+            data_dict = request.json
     
-    @app.route('/metadata', methods=['GET'])
+            values_list = list(data_dict.values())
+            sample_data_point = np.array([values_list])
+    
+            predicted_value = loaded_model.predict(sample_data_point)
+    
+            # Convert the NumPy array to a Python list
+            return jsonify({'prediction': predicted_value.tolist()})
+    
+        except Exception as e:
+            return jsonify({'error': str(e)})
+    
+    @app.route("/metadata", methods=["GET"])
     def metadata():
-        return jsonify({'algorithm': 'Random Forest', 'features': ['sepal_length', 'sepal_width', 'petal_length', 'petal_width']})
+        try:
+            # Load the trained model from the file
+            loaded_model = joblib.load("california_housing_prediction.joblib")
+        except Exception as e:
+            return jsonify({"error": str(e)})
+    
+        # Extract model metadata
+        coef = loaded_model.coef_
+        intercept = loaded_model.intercept_
+    
+        feature_names = ['MedInc', 'HouseAge', 'AveRooms', 'AveBedrms', 'Population', 'AveOccup', 'Latitude', 'Longitude']
+    
+        feature_coef_map = {}
+        for feature, coef_value in zip(feature_names, coef):
+            feature_coef_map[feature] = coef_value
+    
+        return jsonify({
+            "model_coefficients": feature_coef_map,
+            "model_intercept": intercept,
+        })
     
     if __name__ == "__main__":
         app.run(host='0.0.0.0', port=5000, debug=True)
 
 ### Tran and dump a new train a new scikit-learn model
 		
-    import joblib
-    import numpy as np
     from sklearn.model_selection import train_test_split
     from sklearn.linear_model import LinearRegression
     import joblib
@@ -176,11 +205,25 @@ Certainly! The task involves several steps, each requiring some technical skills
 ### `Dockerfile`
 
 
-    FROM python:3.8
-    COPY . /app
-    WORKDIR /app
+    FROM python:3.7
+    
+    ARG VERSION
+    
+    LABEL org.label-schema.version=$VERSION
+    
+    COPY ./california_housing_prediction.joblib /webapp/california_housing_prediction.joblib
+    
+    COPY ./requirements.txt /webapp/requirements.txt
+    
+    WORKDIR /webapp
+    
     RUN pip install -r requirements.txt
-    CMD ["python", "app.py"]
+    
+    COPY webapp/* /webapp
+    
+    ENTRYPOINT ["python"]
+    
+    CMD ["app.py"]
 
 
 ### Commands to build and run Docker container
