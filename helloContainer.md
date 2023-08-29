@@ -228,10 +228,14 @@ Certainly! The task involves several steps, each requiring some technical skills
 
 ### Commands to build and run Docker container
 
-
-    docker build -t my_flask_app .
-    docker run -p 5000:5000 my_flask_app
- 
+    # Build the container image
+    docker build --build-arg VERSION=Auto_287f444c -t flask-predict .
+    
+    #Double-check that the image is now available after building
+    docker images flask-predict
+    
+    # Run the container in the background
+    docker run -p 5000:5000 -d --name flask-predict flask-predict  
 
 # 3: Test and Deploy
 
