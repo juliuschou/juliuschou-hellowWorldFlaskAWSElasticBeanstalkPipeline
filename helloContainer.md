@@ -147,17 +147,20 @@ Certainly! The task involves several steps, each requiring some technical skills
     if __name__ == "__main__":
         app.run(host='0.0.0.0', port=5000, debug=True)
 
-### tran and dump a new train a new scikit-learn model
+### Tran and dump a new train a new scikit-learn model
+		
+    import joblib
+    import numpy as np
     from sklearn.model_selection import train_test_split
     from sklearn.linear_model import LinearRegression
     import joblib
     
     from sklearn.datasets import fetch_california_housing
     
-    # Load the Boston Housing dataset
-    boston = fetch_california_housing()
-    X = boston.data
-    y = boston.target
+    # Load the california Housing dataset
+    california = fetch_california_housing()
+    X = california.data
+    y = california.target
     
     # Split the data into training and testing sets
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -167,7 +170,7 @@ Certainly! The task involves several steps, each requiring some technical skills
     model.fit(X_train, y_train)
     
     # Save the trained model
-    joblib.dump(model, "boston_housing_prediction.joblib")
+    joblib.dump(model, "california_housing_prediction.joblib")
 
 
 ### `Dockerfile`
