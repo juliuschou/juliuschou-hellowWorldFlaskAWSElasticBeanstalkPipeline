@@ -6,29 +6,40 @@ The task involves several steps, each requiring some technical skills in areas s
 
 1.1.  **Initialize a New Python Project**: 
 
-- Create a python virtual env and a working foler. Create a `requirements.txt` to list the Python packages you'll need (Flask, scikit-learn, etc.).
+- Create a python virtual env and a source folder. Create a `requirements.txt` to list the Python packages you'll need (Flask, scikit-learn, etc.).
     
         python -m venv helloContainerWithFlaskAndScikitLearnApp
         
         mkdir helloContainerWithFlaskAndScikitLearnWS && cd helloContainerWithFlaskAndScikitLearnWS
     
-      
+        #requirements.txt
+        Flask==2.2.5
+        joblib==1.3.2
+        numpy==1.21.6
+        pandas==1.3.5
+        python-dateutil==2.8.2
+        requests==2.31.0
+        scikit-learn==1.0.2        
 
 ![image](https://github.com/juliuschou/juliuschou-hellowWorldFlaskAWSElasticBeanstalkPipeline/assets/4725611/a98c7156-77b5-4813-abfd-36e6f20d0c8a)
     
 1.2.  **Create a Flask App**: 
-- Create a Python script, like `app.py`, where you import Flask and initialize a Flask web application.
+- Create a WORKDIRDIR folder named webapp. Create a Python script, like `app.py` in webapp folder, where you import Flask and initialize a Flask web application.
+
+1.3.  **Train scikit-learn Model**: 
+- Train a new scikit-learn model. 
+
     
-1.3.  **Train/Load scikit-learn Model**: 
-- Within `app.py`, either train a new scikit-learn model or load a pre-trained model. You can use joblib or pickle to load a pre-trained model.
+1.4.  **Load scikit-learn Model**: 
+- Within `app.py`, load a pre-trained model. You can use joblib or pickle to load the model.
     
-1.4.  **Predictive Endpoint**: 
+1.5.  **Predictive Endpoint**: 
 - Create a Flask route (e.g., `/predict`) that uses the trained scikit-learn model to make predictions based on input data.
     
-1.5.  **Example Endpoint**: 
+1.6.  **Example Endpoint**: 
 - Create another Flask route (e.g., `/example`) that returns an example GET request to interact with the model.
     
-1.6.  **Metadata Endpoint**: 
+1.7.  **Metadata Endpoint**: 
 - Create yet another Flask route (e.g., `/metadata`) that returns metadata about the model like algorithm used, feature importance, etc.
     
 
