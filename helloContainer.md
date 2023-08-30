@@ -7,7 +7,12 @@ The task involves several steps, each requiring some technical skills in areas s
 1.1.  **Initialize a New Python Project**: 
 
 - Create a python virtual env and a working foler. Create a `requirements.txt` to list the Python packages you'll need (Flask, scikit-learn, etc.).
-  
+    
+        python -m venv helloContainerWithFlaskAndScikitLearnApp
+        
+        mkdir helloContainerWithFlaskAndScikitLearnWS && cd helloContainerWithFlaskAndScikitLearnWS
+    
+      
 
 ![image](https://github.com/juliuschou/juliuschou-hellowWorldFlaskAWSElasticBeanstalkPipeline/assets/4725611/a98c7156-77b5-4813-abfd-36e6f20d0c8a)
     
