@@ -27,7 +27,7 @@ The task involves several steps, each requiring some technical skills in areas s
 - Create a WORKDIRDIR folder named webapp. Create a Python script, like `app.py` in webapp folder, where you import Flask and initialize a Flask web application.
 
 1.3.  **Train scikit-learn Model**: 
-- Train a new scikit-learn model. 
+- Train a new scikit-learn model and dump the model into a joblib file. Copy the joblib to webapp.
 
     
 1.4.  **Load scikit-learn Model**: 
