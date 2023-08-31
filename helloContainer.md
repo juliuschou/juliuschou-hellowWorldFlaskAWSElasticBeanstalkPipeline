@@ -19,9 +19,13 @@ The task involves several steps, each requiring some technical skills in areas s
         pandas==1.3.5
         python-dateutil==2.8.2
         requests==2.31.0
-        scikit-learn==1.0.2        
+        scikit-learn==1.0.2
 
-![image](https://github.com/juliuschou/juliuschou-hellowWorldFlaskAWSElasticBeanstalkPipeline/assets/4725611/a98c7156-77b5-4813-abfd-36e6f20d0c8a)
+        #install packages
+        pip install -r requirements.txt
+
+![image](https://github.com/juliuschou/juliuschou-hellowWorldFlaskAWSElasticBeanstalkPipeline/assets/4725611/ae133c4f-1f81-4d5a-ba91-64f9997ec49d)
+
     
 1.2.  **Create a Flask App**: 
 - Create a WORKDIRDIR folder named webapp. Create a Python script, like `app.py` in webapp folder, where you import Flask and initialize a Flask web application.
@@ -196,7 +200,7 @@ The task involves several steps, each requiring some technical skills in areas s
     if __name__ == "__main__":
         app.run(host='0.0.0.0', port=5000, debug=True)
 
-### Tran and dump a new train a new scikit-learn model
+### Tran and dump a new train a new scikit-learn model - californiaHousingPricingPrediction.py
 		
     from sklearn.model_selection import train_test_split
     from sklearn.linear_model import LinearRegression
@@ -257,7 +261,7 @@ The task involves several steps, each requiring some technical skills in areas s
 
 # 3: Test and Deploy
 
-3.1.  **Test the Application**: Make sure to test your Flask routes thoroughly.
+3.1.  **Test the Application**: Make sure to test your Flask routes thoroughly. - callFlaskPredict.py
 
     import requests
     
